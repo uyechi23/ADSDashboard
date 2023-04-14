@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!-- Tab Title -->
+        <title>ADS Dashboard</title>
+
+        <!-- Load in main.css stylesheet -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <link rel="shortcut icon" href="{{ url_for('static', filename='resources/favicon.ico') }}">
+    </head>
+    <body>
+        <div class="mainheader">
+            Atmospheric Deposition Sampler
+        </div>
+        <div class="grid-container">
+            <div class="grid-item grid-raintime" style="text-align:center">
+                <div class="box-header">Time Raining:</div>
+                <div class="timer">[WIP]</div>
+            </div>
+            <div class="grid-item grid-runtime" style="text-align:center">
+                <div class="box-header">Total Running Time:</div>
+                <div class="timer">{{timers['runtime']}}</div>
+            </div>
+            <div class="grid-item grid-forecast">
+                <div class="box-header">Forecast as of {{forecast_data['time']}} {{forecast_data['timezone']}}:</div><br>
+                <div class="forecast">Latitude: {{forecast_data['lat']}}&deg;N<br>
+                Longitude: {{forecast_data['lon']}}&deg;W<br>
+                Elevation: {{forecast_data['elevation']}}m<br>
+                Temperature (&deg;C): {{forecast_data['temp_c']}}&deg;C<br>
+                Temperature (&deg;F): {{forecast_data['temp_f']}}&deg;F<br>
+                Wind Speed: {{forecast_data['windspeed']}} km/h<br>
+                Wind Direction: {{forecast_data['winddirection']}}&deg;<br></div>
+            </div>
+            <div class="grid-item grid-currtemp" style="text-align:center">
+                <div class="box-header">Current Temperature:</div>
+                <div class="temphumreading">{{deviceinfo['temp']}}&deg;C</div>
+            </div>
+            <div class="grid-item grid-currhum" style="text-align:center">
+                <div class="box-header">Current Humidity:</div>
+                <div class="temphumreading">{{deviceinfo['hum']}}%</div>
+            </div>
+            <div class="grid-item grid-tempgraph" style="text-align:center">
+                <div class="box-header">Temperature Graph:</div>
+                <div class="temphumreading">[WIP]</div>
+            </div>
+            <div class="grid-item grid-devicename" style="text-align:center">
+                <div class="box-header">Device Name:</div>
+                <div class="deviceinfo">{{deviceinfo['name']}}</div>
+            </div>
+            <div class="grid-item grid-devicemac" style="text-align:center">
+                <div class="box-header">Device MAC Address:</div>
+                <div class="deviceinfo">{{deviceinfo['mac']}}</div>
+            </div>
+            <div class="grid-item grid-raining" style="text-align:center">
+                <div class="box-header">Raining:</div>
+                <div class="deviceinfo">
+                {% if deviceinfo['raining'] == 1 %}
+                    YES
+                {% else %}
+                    NO
+                {% endif %}</div>
+            </div>
+            <div class="grid-item grid-status" style="text-align:center">
+                <div class="box-header">Status:</div>
+                <div class="deviceinfo">{{deviceinfo['status']}}</div>
+            </div>
+            <div class="grid-item grid-recordnum" style="text-align:center">
+                <div class="box-header">Number of Records:</div>
+                <div class="deviceinfo">{{deviceinfo['recordnum']}}</div>
+            </div>
+        </div>
+    </body>
+</html>

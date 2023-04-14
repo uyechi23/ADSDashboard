@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@200&display=swap');
+
+:root {
+    --primary-color-1: #FF8DC6;
+    --primary-color-2: #FD9ECE;
+    --primary-color-3: #FFB3D9;
+    --primary-color-4: #FFCDE6;
+    --primary-color-5: #FFE5F2;
+    --secondary-color-1: #A9DDB1;
+    --secondary-color-2: #B6E4BC;
+    --secondary-color-3: #C3EBC6;
+    --secondary-color-4: #DEF8DB;
+    --secondary-color-5: #EBFFE6;
+    --background-1: #121212;
+    --background-2: #242424;
+    --foreground-1: #DEDEDE;
+    --foreground-2: #EFEFEF;
+
+    --font-base: calc(1vh+1vw);
+    --font-large: calc(var(--font-base)*4.0);
+    --font-medium: calc(var(--font-base)*2.0);
+    --font-small: calc(var(--font-base)*1.5);
+
+    --spacing-base: calc(1vh+1vw);
+    --spacing-large: calc(var(--spacing-base)*3.0);
+    --spacing-medium: calc(var(--spacing-base)*2.0);
+    --spacing-small: calc(var(--spacing-base)*1.0);
+}
+
+body {
+    background: var(--background-1);
+    font-family: 'Lexend Exa', sans-serif;
+    color: var(--foreground-1);
+    max-height: 100vh;
+    max-width: 100vw;
+}
+
+.mainheader {
+    color: var(--secondary-color-2);
+    background-color: var(--background-1);
+    padding: 0 var(--spacing-large);
+    margin-left: var(--spacing-small);
+    font-size: var(--font-large);
+    font-family: 'Lexend Exa', sans-serif;
+}
+
+.box-header {
+    color: var(--primary-color-2);
+    font-size: var(--font-medium);
+    padding: 0 var(--spacing-medium);
+    text-align: center;
+    margin: var(--spacing-medium) 0;
+}
+
+.forecast {
+    padding: 0 var(--spacing-medium);
+    font-size: var(--font-medium)
+}
+
+.temphumreading {
+    display: inline-block;
+    font-size: var(--font-large);
+}
+
+.timer {
+    display: inline-block;
+    font-size: var(--font-large);
+}
+
+.deviceinfo {
+    display:  inline-block;
+    font-size: var(--font-small);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+        "raintime raintime raintime raintime forecast forecast"
+        "runtime runtime runtime runtime forecast forecast"
+        "currtemp tempgraph tempgraph tempgraph tempgraph tempgraph"
+        "currtemp tempgraph tempgraph tempgraph tempgraph tempgraph"
+        "currhum tempgraph tempgraph tempgraph tempgraph tempgraph"
+        "currhum tempgraph tempgraph tempgraph tempgraph tempgraph"
+        "devicename devicemac devicemac raining status recordnum";
+    gap: var(--spacing-small);
+    padding: var(--spacing-medium);
+    height: 85vh;
+}
+
+.grid-item {
+    background-color: #242424;
+    border-radius: var(--spacing-medium);
+    padding: var(--spacing-small);
+    overflow: hidden;
+    font-size: var(--font-small);
+}
+
+.grid-raintime {grid-area: raintime;}
+.grid-runtime {grid-area: runtime;}
+.grid-forecast {grid-area: forecast;}
+.grid-tempgraph {grid-area: tempgraph;}
+.grid-currtemp {grid-area: currtemp;}
+.grid-currhum {grid-area: currhum;}
+.grid-devicemac {grid-area: devicemac;}
+.grid-devicename {grid-area: devicename;}
+.grid-raining {grid-area: raining;}
+.grid-status {grid-area: status;}
+.grid-recordnum {grid-area: recordnum;}

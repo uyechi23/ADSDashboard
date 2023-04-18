@@ -15,7 +15,7 @@
         <div class="grid-container">
             <div class="grid-item grid-raintime" style="text-align:center">
                 <div class="box-header">Time Raining:</div>
-                <div class="timer">[WIP]</div>
+                <div class="timer">{{timers['raintime']}}</div>
             </div>
             <div class="grid-item grid-runtime" style="text-align:center">
                 <div class="box-header">Total Running Time:</div>
@@ -65,8 +65,8 @@
                 <div class="deviceinfo">{{deviceinfo['status']}}</div>
             </div>
             <div class="grid-item grid-recordnum" style="text-align:center">
-                <div class="box-header">Number of Records:</div>
-                <div class="deviceinfo">{{deviceinfo['recordnum']}}</div>
+                <div class="box-header">Number of Records<br>(Miscellaneous/Rain Data):</div>
+                <div class="deviceinfo">{{deviceinfo['recordnum_misc']}}/{{deviceinfo['recordnum_rain']}}</div>
             </div>
         </div>
     </body>

@@ -3,7 +3,7 @@ import sqlite3
 from datetime import datetime
 import pytz
 from openmeteo_py import Options,OWmanager
-import os   
+import os
 
 app = Flask(__name__)
 

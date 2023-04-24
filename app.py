@@ -25,7 +25,7 @@ def favicon():
 @app.route("/dashboard/<string:name>")
 def dashboard(name):
     # create a database connection and cursor
-    con = sqlite3.connect(f'{name}.sqlite3')
+    con = sqlite3.connect(f'databases/{name}.sqlite3')
     cur = con.cursor()
     
     # query oldest timestamp
@@ -132,7 +132,7 @@ def inputmiscdata(name, macaddress, status, temp, hum):
     currtime = datetime.now().astimezone(pytz.timezone('Canada/Pacific')).strftime('%Y-%m-%d %H:%M:%S.%f')
     
     # create a database connection and cursor
-    con = sqlite3.connect(f'{name}.sqlite3')
+    con = sqlite3.connect(f'databases/{name}.sqlite3')
     cur = con.cursor()
     
     # query to create a table if it doesn't already exist
@@ -181,7 +181,7 @@ def inputraindata(name, raining):
     currtime = datetime.now().astimezone(pytz.timezone('Canada/Pacific')).strftime('%Y-%m-%d %H:%M:%S.%f')
     
     # create a database connection and cursor
-    con = sqlite3.connect(f'{name}.sqlite3')
+    con = sqlite3.connect(f'databases/{name}.sqlite3')
     cur = con.cursor()
     
     # query to create a table if it doesn't already exist

@@ -1,5 +1,7 @@
+/* import Google fonts */
 @import url('https://fonts.googleapis.com/css2?family=Lexend+Exa:wght@200&display=swap');
 
+/* stylesheet root vars */
 :root {
     --primary-color-1: #FF8DC6;
     --primary-color-2: #FD9ECE;
@@ -27,6 +29,7 @@
     --spacing-small: calc(var(--spacing-base)*1.0);
 }
 
+/* body styles */
 body {
     background: var(--background-1);
     font-family: 'Lexend Exa', sans-serif;
@@ -35,6 +38,7 @@ body {
     max-width: 100vw;
 }
 
+/* main header styles (text at top of screen) */
 .mainheader {
     color: var(--secondary-color-2);
     background-color: var(--background-1);
@@ -44,6 +48,7 @@ body {
     font-family: 'Lexend Exa', sans-serif;
 }
 
+/* headers within boxes on dashboard */
 .box-header {
     color: var(--primary-color-2);
     font-size: var(--font-medium);
@@ -52,26 +57,31 @@ body {
     margin: var(--spacing-medium) 0;
 }
 
+/* forecast text styles */
 .forecast {
     padding: 0 var(--spacing-medium);
     font-size: var(--font-medium)
 }
 
+/* temperature and humidity box text styles */
 .temphumreading {
     display: inline-block;
     font-size: var(--font-large);
 }
 
+/* timers text style */
 .timer {
     display: inline-block;
     font-size: var(--font-large);
 }
 
+/* device info text styles */
 .deviceinfo {
     display:  inline-block;
     font-size: var(--font-small);
 }
 
+/* grid layout */
 .grid-container {
     display: grid;
     grid-template-areas:
@@ -87,6 +97,7 @@ body {
     height: 85vh;
 }
 
+/* styles for all grid items */
 .grid-item {
     background-color: #242424;
     border-radius: var(--spacing-medium);
@@ -95,6 +106,7 @@ body {
     font-size: var(--font-small);
 }
 
+/* grid area definitions */
 .grid-raintime {grid-area: raintime;}
 .grid-runtime {grid-area: runtime;}
 .grid-forecast {grid-area: forecast;}
@@ -106,3 +118,4 @@ body {
 .grid-raining {grid-area: raining;}
 .grid-status {grid-area: status;}
 .grid-recordnum {grid-area: recordnum;}
+

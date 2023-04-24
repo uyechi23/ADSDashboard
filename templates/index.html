@@ -7,6 +7,9 @@
         <!-- Load in main.css stylesheet -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
         <link rel="shortcut icon" href="{{ url_for('static', filename='resources/favicon.ico') }}">
+        
+        <!-- Load in Chart.js script -->
+        {% block chartjsimport %}{% endblock %}
     </head>
     <body>
         <div class="mainheader">
@@ -41,7 +44,8 @@
             </div>
             <div class="grid-item grid-tempgraph" style="text-align:center">
                 <div class="box-header">Temperature Graph:</div>
-                <div class="temphumreading">[WIP]</div>
+                {% block graph %}
+                {% endblock %}
             </div>
             <div class="grid-item grid-devicename" style="text-align:center">
                 <div class="box-header">Device Name:</div>

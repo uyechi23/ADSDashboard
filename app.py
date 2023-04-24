@@ -88,6 +88,16 @@ def dashboard(name):
         'raining':f'{record_rain[1]}'
     }
     
+    # retrieve graph data from database
+    query = f'\
+        SELECT humidity, timestamp FROM miscdata\
+        LIMIT 60\
+    '
+    
+    graphdata = cur.execute(query).fetchall()
+    labels = [row[1] for row in graphdata]
+    values = [row[0] for row in graphdata]
+    
     con.close()
     
     # Forecast API Call (OpenMeteo)
@@ -114,7 +124,26 @@ def dashboard(name):
         'winddirection':meteo['current_weather']['winddirection'],
     }
     
-    return render_template("index.html", forecast_data=forecast_data, timers=timers, deviceinfo=deviceinfo)
+    labels = [
+        "01-01-2020",
+        "02-01-2020",
+        "03-01-2020",
+        "04-01-2020",
+        "05-01-2020",
+        "06-01-2020",
+        "07-01-2020",
+        "08-01-2020",
+        "09-01-2020"
+    ]
+    
+    values = [1597,1456,1908,896,755,453,1100,1235,1478]
+    
+    return render_template("test.html",
+                           forecast_data=forecast_data,
+                           timers=timers,
+                           deviceinfo=deviceinfo,
+                           labels=labels,
+                           values=values)
 
 """
     inputmiscdata - Input data to database with Flask URL Parameters (miscellaneous data)

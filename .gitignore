@@ -1,6 +1,6 @@
 # project-specific files
 env/
-*.sqlite3
+*.sqlite3*
 *.token
 
 # Byte-compiled / optimized / DLL files

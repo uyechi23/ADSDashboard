@@ -95,8 +95,6 @@ def create_app():
             'raining': "Yes" if record_rain[1] == 1 else "No"
         }
         
-        print(f'{deviceinfo["raining"]}')
-        
         # retrieve graph data from database
         query = f'\
             SELECT temperature, humidity, timestamp FROM miscdata\
@@ -171,6 +169,9 @@ def create_app():
     def inputmiscdata(name, macaddress, status, temp, hum):
         # get the current time
         currtime = datetime.now().astimezone(pytz.timezone('Canada/Pacific')).strftime('%Y-%m-%d %H:%M:%S.%f')
+        
+        # modify status string - replace + with spaces
+        status = status.replace("+", " ")
         
         # create a database connection and cursor
         con = sqlite3.connect(f'databases/{name}.sqlite3')

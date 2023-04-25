@@ -4,6 +4,9 @@
         <!-- Tab Title -->
         <title>ADS Dashboard</title>
 
+        <!-- auto refresh -->
+        <meta http-equiv="refresh" content="60">
+
         <!-- Load in main.css stylesheet -->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
         <link rel="shortcuticon" href="{{ url_for('static', filename='resources/favicon.ico') }}">
@@ -69,12 +72,7 @@
             </div>
             <div class="grid-item grid-raining" style="text-align:center">
                 <div class="box-header">Raining:</div>
-                <div class="deviceinfo">
-                {% if deviceinfo['raining'] == 1 %}
-                    YES
-                {% else %}
-                    NO
-                {% endif %}</div>
+                <div class="deviceinfo">{{deviceinfo['raining']}}</div>
             </div>
             <div class="grid-item grid-status" style="text-align:center">
                 <div class="box-header">Status:</div>

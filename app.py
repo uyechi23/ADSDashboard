@@ -92,8 +92,10 @@ def dashboard(name):
         'status':f'{record_misc[2]}',
         'temp':f'{record_misc[3]}',
         'hum':f'{record_misc[4]}',
-        'raining':f'{record_rain[1]}'
+        'raining': "Yes" if record_rain[1] == 1 else "No"
     }
+    
+    print(f'{deviceinfo["raining"]}')
     
     # retrieve graph data from database
     query = f'\
@@ -112,7 +114,7 @@ def dashboard(name):
     times = [datetime.strptime(item, "%Y-%m-%d %H:%M:%S.%f") for item in times] # parse string to datetime
     last_timestamp = times[0] # save the most recent timestamp
     times = [(last_timestamp - item) for item in times] # calculate timedelta from latest timestamp
-    times = [round(-1*item.total_seconds()) for item in times] # convert to total seconds from latest timestamp
+    times = [round(item.total_seconds()) for item in times] # convert to total seconds from latest timestamp
     
     # flip lists to display properly on Jinja template
     times.reverse()

@@ -85,13 +85,13 @@ body {
 .grid-container {
     display: grid;
     grid-template-areas:
-        "raintime raintime raintime raintime forecast forecast"
-        "runtime runtime runtime runtime forecast forecast"
-        "currtemp tempgraph tempgraph tempgraph tempgraph tempgraph"
-        "currtemp tempgraph tempgraph tempgraph tempgraph tempgraph"
-        "currhum tempgraph tempgraph tempgraph tempgraph tempgraph"
-        "currhum tempgraph tempgraph tempgraph tempgraph tempgraph"
-        "devicename devicemac devicemac raining status recordnum";
+        "raintime raintime raintime timegraph timegraph forecast forecast"
+        "runtime runtime runtime timegraph timegraph forecast forecast"
+        "currtemp tempgraph tempgraph tempgraph humgraph humgraph humgraph"
+        "currtemp tempgraph tempgraph tempgraph humgraph humgraph humgraph"
+        "currhum tempgraph tempgraph tempgraph humgraph humgraph humgraph"
+        "currhum tempgraph tempgraph tempgraph humgraph humgraph humgraph"
+        "devicename devicemac devicemac raining status status recordnum";
     gap: var(--spacing-small);
     padding: var(--spacing-medium);
     height: 85vh;
@@ -101,6 +101,7 @@ body {
 .grid-item {
     background-color: #242424;
     border-radius: var(--spacing-medium);
+    padding-top: var(--spacing-base);
     padding: var(--spacing-small);
     overflow: hidden;
     font-size: var(--font-small);
@@ -109,8 +110,10 @@ body {
 /* grid area definitions */
 .grid-raintime {grid-area: raintime;}
 .grid-runtime {grid-area: runtime;}
+.grid-timegraph {grid-area: timegraph;}
 .grid-forecast {grid-area: forecast;}
-.grid-tempgraph {grid-area: tempgraph;}
+.grid-tempgraph {grid-area: tempgraph; width: 40vw; height: 40vh;}
+.grid-humgraph {grid-area: humgraph; width: 40vw; height: 40vh;}
 .grid-currtemp {grid-area: currtemp;}
 .grid-currhum {grid-area: currhum;}
 .grid-devicemac {grid-area: devicemac;}
@@ -119,3 +122,13 @@ body {
 .grid-status {grid-area: status;}
 .grid-recordnum {grid-area: recordnum;}
 
+/* graph style definitions */
+.chart-container {
+    width: 100%;
+    height: 100%;
+}
+
+canvas { 
+    width: 100%;
+    height: 100%;
+}

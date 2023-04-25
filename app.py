@@ -1,12 +1,16 @@
+# library imports
 from flask import Flask, render_template, jsonify, send_from_directory
 import sqlite3
 from datetime import datetime
 import pytz
 from openmeteo_py import Options,OWmanager
 import os
+import pandas as pd
 
+# initialize Flask app
 app = Flask(__name__)
 
+# Heartbeat Route - checks functionality at base URL
 @app.route("/")
 def default():
     return f'ADS Dashboard is running. Current time: {datetime.now()}'
@@ -90,14 +94,30 @@ def dashboard(name):
     
     # retrieve graph data from database
     query = f'\
-        SELECT humidity, timestamp FROM miscdata\
-        LIMIT 60\
+        SELECT temperature, humidity, timestamp FROM miscdata\
+        ORDER BY timestamp DESC\
+        LIMIT 20\
     '
-    
     graphdata = cur.execute(query).fetchall()
-    labels = [row[1] for row in graphdata]
-    values = [row[0] for row in graphdata]
     
+    # retrieve temperature and humidity values
+    temperaturevalues = [row[0] for row in graphdata]
+    humidityvalues = [row[1] for row in graphdata]
+    
+    # manipulate timestamps to be calculated in delta seconds
+    times = [row[2] for row in graphdata] # select the second index in graphdata
+    times = [datetime.strptime(item, "%Y-%m-%d %H:%M:%S.%f") for item in times] # parse string to datetime
+    last_timestamp = times[0] # save the most recent timestamp
+    times = [(last_timestamp - item) for item in times] # calculate timedelta from latest timestamp
+    times = [round(-1*item.total_seconds(), 2) for item in times] # convert to total seconds from latest timestamp
+    print(times)
+    
+    # flip lists to display properly on Jinja template
+    times.reverse()
+    humidityvalues.reverse()
+    temperaturevalues.reverse()
+    
+    # close database connection
     con.close()
     
     # Forecast API Call (OpenMeteo)
@@ -124,26 +144,13 @@ def dashboard(name):
         'winddirection':meteo['current_weather']['winddirection'],
     }
     
-    labels = [
-        "01-01-2020",
-        "02-01-2020",
-        "03-01-2020",
-        "04-01-2020",
-        "05-01-2020",
-        "06-01-2020",
-        "07-01-2020",
-        "08-01-2020",
-        "09-01-2020"
-    ]
-    
-    values = [1597,1456,1908,896,755,453,1100,1235,1478]
-    
-    return render_template("test.html",
+    return render_template("dashboard.html",
                            forecast_data=forecast_data,
                            timers=timers,
                            deviceinfo=deviceinfo,
-                           labels=labels,
-                           values=values)
+                           times=times,
+                           humidityvalues=humidityvalues,
+                           temperaturevalues=temperaturevalues)
 
 """
     inputmiscdata - Input data to database with Flask URL Parameters (miscellaneous data)

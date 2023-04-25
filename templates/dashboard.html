@@ -9,6 +9,40 @@
 </script>
 {% endblock %}
 
+{% block raintimedist %}
+<div class="chart-container">
+    <canvas id="raintimedistChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const raintimedistctx = document.getElementById("raintimedistChart");
+
+    new Chart(raintimedistctx, {
+        type: "doughnut",
+        data : {
+            labels: ["Precipitation Events", "Dry Weather"],
+            datasets: [
+                {
+                    label: "Test",
+                    data: {{ raintimedist | safe }},
+                    backgroundColor: [
+                        "#FF8DC6",
+                        "#A9DDB1"
+                    ]
+                }
+            ]
+        },
+        options: {
+            rotation: -90,
+            circumference: 180,
+            cutout: 80
+        }
+    })
+</script>
+{% endblock %}
+
 {% block humgraph %}
 <div class="chart-container">
     <canvas id="humidityChart"></canvas>
@@ -28,8 +62,12 @@
                     label: "Humidity",
                     data: {{ humidityvalues | safe }},
                     borderWidth: 1,
-                },
-            ],
+                    pointBackgroundColor: "#DEF8DB",
+                    pointBorderColor: "#A9DDB1",
+                    borderColor: "#B6E4BC",
+                    tension: 0.3
+                }
+            ]
         },
         options: {
             scales: {
@@ -47,10 +85,14 @@
                     suggestedMax: 100,
                     ticks: {
                         stepSize: 5
+                    },
+                    title: {
+                        display: true,
+                        text: "Humidity (%)"
                     }
-                },
-            },
-        },
+                }
+            }
+        }
     });
 </script>
 {% endblock %}
@@ -74,8 +116,12 @@
                     label: "Temperature",
                     data: {{ temperaturevalues | safe }},
                     borderWidth: 1,
-                },
-            ],
+                    pointBackgroundColor: "#FFB3D9",
+                    pointBorderColor: "#FF8DC6",
+                    borderColor: "#FD9ECE",
+                    tension: 0.3
+                }
+            ]
         },
         options: {
             scales: {
@@ -88,15 +134,18 @@
                 },
                 y: {
                     display: true,
-                    beginAtZero: true,
-                    suggestedMin: 0,
-                    suggestedMax: 100,
+                    suggestedMin: -20,
+                    suggestedMax: 50,
                     ticks: {
-                        stepSize: 5
+                        stepSize: 5,
+                    },
+                    title: {
+                        display: true,
+                        text: "Temperature (\xB0C)"
                     }
-                },
-            },
-        },
+                }
+            }
+        }
     });
 </script>
 {% endblock %}

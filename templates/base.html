@@ -30,7 +30,8 @@
                 <div class="timer">{{timers['runtime']}}</div>
             </div>
             <div class="grid-item grid-timegraph" style="text-align:center">
-                <div class="box-header">Rainfall Distribution:</div>
+                {% block raintimedist %}
+                {% endblock %}
             </div>
             <div class="grid-item grid-forecast">
                 <div class="box-header">Forecast as of {{forecast_data['time']}} {{forecast_data['timezone']}}:</div><br>
@@ -51,12 +52,10 @@
                 <div class="temphumreading">{{deviceinfo['hum']}}%</div>
             </div>
             <div class="grid-item grid-tempgraph" style="text-align:center">
-                <div class="box-header">Temperature Graph:</div>
                 {% block tempgraph %}
                 {% endblock %}
             </div>
             <div class="grid-item grid-humgraph" style="text-align:center">
-                <div class="box-header">Humidity Graph:</div>
                 {% block humgraph %}
                 {% endblock %}
             </div>

@@ -27,6 +27,7 @@
     --spacing-large: calc(var(--spacing-base)*3.0);
     --spacing-medium: calc(var(--spacing-base)*2.0);
     --spacing-small: calc(var(--spacing-base)*1.0);
+    --spacing-xsmall: calc(var(--spacing-base)*0.5);
 }
 
 /* body styles */
@@ -54,7 +55,7 @@ body {
     font-size: var(--font-medium);
     padding: 0 var(--spacing-medium);
     text-align: center;
-    margin: var(--spacing-medium) 0;
+    margin: var(--spacing-small) 0;
 }
 
 /* forecast text styles */
@@ -84,14 +85,8 @@ body {
 /* grid layout */
 .grid-container {
     display: grid;
-    grid-template-areas:
-        "raintime raintime raintime timegraph timegraph forecast forecast"
-        "runtime runtime runtime timegraph timegraph forecast forecast"
-        "currtemp tempgraph tempgraph tempgraph humgraph humgraph humgraph"
-        "currtemp tempgraph tempgraph tempgraph humgraph humgraph humgraph"
-        "currhum tempgraph tempgraph tempgraph humgraph humgraph humgraph"
-        "currhum tempgraph tempgraph tempgraph humgraph humgraph humgraph"
-        "devicename devicemac devicemac raining status status recordnum";
+    grid-template-rows: repeat(12, 1fr);
+    grid-template-columns: repeat(12, 1fr);
     gap: var(--spacing-small);
     padding: var(--spacing-medium);
     height: 85vh;
@@ -101,31 +96,33 @@ body {
 .grid-item {
     background-color: #242424;
     border-radius: var(--spacing-medium);
-    padding-top: var(--spacing-base);
     padding: var(--spacing-small);
     overflow: hidden;
     font-size: var(--font-small);
 }
 
 /* grid area definitions */
-.grid-raintime {grid-area: raintime;}
-.grid-runtime {grid-area: runtime;}
-.grid-timegraph {grid-area: timegraph;}
-.grid-forecast {grid-area: forecast;}
-.grid-tempgraph {grid-area: tempgraph; width: 40vw; height: 40vh;}
-.grid-humgraph {grid-area: humgraph; width: 40vw; height: 40vh;}
-.grid-currtemp {grid-area: currtemp;}
-.grid-currhum {grid-area: currhum;}
-.grid-devicemac {grid-area: devicemac;}
-.grid-devicename {grid-area: devicename;}
-.grid-raining {grid-area: raining;}
-.grid-status {grid-area: status;}
-.grid-recordnum {grid-area: recordnum;}
+.grid-raintime { grid-area: 1 / 1 / 3 / 6 ; }
+.grid-runtime { grid-area: 3 / 1 / 5 / 6 ; }
+.grid-timegraph { grid-area: 1 / 6 / 5 / 9 ; }
+.grid-forecast { grid-area: 1 / 9 / 5 / 13 ; }
+.grid-currtemp { grid-area: 5 / 1 / 8 / 3; }
+.grid-currhum { grid-area: 8 / 1 / 11 / 3; }
+.grid-tempgraph { grid-area: 5 / 3 / 11 / 8; }
+.grid-humgraph { grid-area: 5 / 8 / 11 / 13; }
+.grid-devicename { grid-area: 11 / 1 / 13 / 3; } 
+.grid-devicemac { grid-area: 11 / 3 / 13 / 5; }
+.grid-raining { grid-area: 11 / 5 / 13 / 7; }
+.grid-status { grid-area: 11 / 7 / 13 / 10; }
+.grid-recordnum { grid-area: 11 / 10 / 13 / 13; }
 
 /* graph style definitions */
 .chart-container {
+    display: flex; /* Use Flexbox layout */
+    align-items: center; /* Vertically align items */
+    justify-content: center; /* Horizontally align items */
     width: 100%;
-    height: 100%;
+    height: 100%
 }
 
 canvas { 

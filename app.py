@@ -43,8 +43,8 @@ def dashboard(name):
     
     # calculate the time difference and parse into string
     runtime = newest-oldest
-    totalseconds = runtime.total_seconds()
-    days, remainder = divmod(totalseconds, 86400)
+    runtime = runtime.total_seconds()
+    days, remainder = divmod(runtime, 86400)
     hours, remainder = divmod(remainder, 3600)
     minutes, seconds = divmod(remainder, 60)
     runtime_string = f'{int(days)}d {int(hours):02}h {int(minutes):02}m {seconds:.3}s'
@@ -66,6 +66,9 @@ def dashboard(name):
         'runtime':runtime_string,
         'raintime':raintime_string
     }
+    
+    # percentage rain data
+    raintimedist = [raintime/runtime, (runtime-raintime)/runtime]
     
     # query device info
     query = f'\
@@ -109,8 +112,7 @@ def dashboard(name):
     times = [datetime.strptime(item, "%Y-%m-%d %H:%M:%S.%f") for item in times] # parse string to datetime
     last_timestamp = times[0] # save the most recent timestamp
     times = [(last_timestamp - item) for item in times] # calculate timedelta from latest timestamp
-    times = [round(-1*item.total_seconds(), 2) for item in times] # convert to total seconds from latest timestamp
-    print(times)
+    times = [round(-1*item.total_seconds()) for item in times] # convert to total seconds from latest timestamp
     
     # flip lists to display properly on Jinja template
     times.reverse()
@@ -150,7 +152,8 @@ def dashboard(name):
                            deviceinfo=deviceinfo,
                            times=times,
                            humidityvalues=humidityvalues,
-                           temperaturevalues=temperaturevalues)
+                           temperaturevalues=temperaturevalues,
+                           raintimedist=raintimedist)
 
 """
     inputmiscdata - Input data to database with Flask URL Parameters (miscellaneous data)

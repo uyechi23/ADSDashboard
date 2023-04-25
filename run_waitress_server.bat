@@ -44,9 +44,24 @@ rem install and upgrade dependencies recursively
 echo Installing Required Dependencies...
 py -m pip install -r requirements.txt
 
+rem set the Flask App's port
+set "FLASK_PORT=8080"
+
 rem start the Flask server
+echo: 
+echo ========================================================
 echo Starting Flask Server (Production Mode)...
-call waitress-serve --host 0.0.0.0 --port 8080 --call "app:create_app"
+
+rem save the IP address of the hosting computer into the NetworkIP environment variable
+for /f "delims=[] tokens=2" %%a in ('ping -4 -n 1 %ComputerName% ^| findstr [') do set NetworkIP=%%a
+
+rem save the network SSID of the hosting computer into the NetworkSSID environment variable
+for /f "tokens=3" %%i in ('netsh wlan show interface ^| findstr /i "SSID"') do set "NetworkSSID=%%i" & goto next
+:next
+echo Network SSID: %NetworkSSID%
+
+rem serve using waitress
+call waitress-serve --host %NetworkIP% --port %FLASK_PORT% --call "app:create_app"
 
 rem terminate the Flask server and deactivate the Virtual Environment
 echo Terminating Batch Job...

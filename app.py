@@ -15,11 +15,12 @@ def create_app():
     def default():
         return f'ADS Dashboard is running. Current time: {datetime.now()}'
 
-
+    # Favicon Route - URL Icon Resource Route
     @app.route('/favicon.ico') 
     def favicon(): 
         return send_from_directory(os.path.join(app.root_path, 'static'), 'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
+    # Dashboard Route - the frontend GUI the user will see; renders a Jinja template
     """
         home - the ADS Dashboard's main page
         @param name - the name of the device you'd like to view
@@ -155,6 +156,7 @@ def create_app():
                             temperaturevalues=temperaturevalues,
                             raintimedist=raintimedist)
 
+    # Input Miscellaneous Data Route - to input miscellaneous data
     """
         inputmiscdata - Input data to database with Flask URL Parameters (miscellaneous data)
         @param name - the name of the device; will be set on the first time it polls data to this route
@@ -211,7 +213,7 @@ def create_app():
             timestamp=currtime
         )
         
-        
+    # Input Rain Event Change Data Route - accessed whenever there's a change in precipitation events
     """
         inputraindata - Input data to database whenever the rain changes
         @param name - the name of the device
@@ -296,3 +298,5 @@ def create_app():
         )
         
     return app
+
+

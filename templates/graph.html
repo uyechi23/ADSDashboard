@@ -1,30 +1,9 @@
 {% extends "index.html" %}
 
 {% block chartjsimport %}
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+
 {% endblock %}
 
 {% block graph %}
-    <canvas id="lineChart"></canvas>
-    <script>
-        var ctx = document.getElementById("lineChart").getContext("2d");
-        var lineChart = new chart(ctx, {
-            type: "line",
-            data: {
-                labels: {{ labels | safe }},
-                datasets: [
-                    {
-                        label: "Timestamps",
-                        data: {{ values | safe }},
-                        fill: false,
-                        borderColor: "rgb(75, 192, 192)",
-                        lineTension: 0.5
-                    }
-                ]
-            },
-            options: {
-                responsive: true
-            }
-        });
-    </script>
+    
 {% endblock %}

@@ -1,6 +1,5 @@
 # project-specific files
 env/
-databases
 *.sqlite3
 *.token
 

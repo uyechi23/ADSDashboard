@@ -1,3 +1,6 @@
+rem stop echoing command executions to terminal window
+@echo off
+
 rem Bypass "Terminate Batch Job" prompt upon pressing CTRL-C to stop Flask server
 if "%~1"=="-FIXED_CTRL_C" (
    rem Remove the -FIXED_CTRL_C parameter
@@ -7,9 +10,6 @@ if "%~1"=="-FIXED_CTRL_C" (
    CALL <NUL %0 -FIXED_CTRL_C %*
    GOTO :EOF
 )
-
-rem stop echoing command executions to terminal window
-@echo off
 
 rem clear screen
 cls

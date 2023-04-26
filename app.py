@@ -29,6 +29,9 @@ def create_app():
     """
     @app.route("/dashboard/<string:name>")
     def dashboard(name):
+        # create a current datetime object
+        currtime = datetime.now()
+        
         # create a database connection and cursor
         con = sqlite3.connect(f'databases/{name}.sqlite3')
         cur = con.cursor()
@@ -43,8 +46,10 @@ def create_app():
         newest = datetime.strptime(records[len(records)-1][0], "%Y-%m-%d %H:%M:%S.%f")
         
         # calculate the time difference and parse into string
-        runtime = newest-oldest
-        runtime = runtime.total_seconds()
+        # additionally, add the time since the last record was posted
+        extratime = currtime - newest
+        runtime = newest - oldest
+        runtime = runtime.total_seconds() + extratime.total_seconds()
         days, remainder = divmod(runtime, 86400)
         hours, remainder = divmod(remainder, 3600)
         minutes, seconds = divmod(remainder, 60)
@@ -52,11 +57,16 @@ def create_app():
         
         # calculate total raintime
         query = f'\
-            SELECT (runningraintime) FROM raindata\
+            SELECT runningraintime, raining FROM raindata\
             ORDER BY timestamp DESC\
         '
         records = con.execute(query).fetchone()
-        raintime = records[0]
+        
+        # calculate raintime, adding on the time difference multiplied by the raining integer
+        # if the device last detected rain (1), it should still be raining and extra time should be added
+        # if the device last detected dry weather (0),
+        # it should not be raining and no extra time should be added (hence multiplying by 0)
+        raintime = records[0] + (records[1] * extratime.total_seconds())
         days, remainder = divmod(raintime, 86400)
         hours, remainder = divmod(remainder, 3600)
         minutes, seconds = divmod(remainder, 60)

@@ -48,7 +48,7 @@ rem set the Flask App's port
 set "FLASK_PORT=8080"
 
 rem start the Flask server
-echo: 
+cls
 echo ========================================================
 echo Starting Flask Server (Production Mode)...
 

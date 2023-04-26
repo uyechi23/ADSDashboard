@@ -45,10 +45,11 @@ py -m pip install -r requirements.txt
 pip-upgrade requirements.txt -p all
 
 rem start the Flask server
-echo: 
+cls 
 echo ========================================================
 echo Starting Flask Server (Developer Mode)...
-call flask run -h 0.0.0.0 -p 8080
+echo:
+call flask run -h 0.0.0.0 -p 8080 --debug
 
 rem terminate the Flask server and deactivate the Virtual Environment
 echo Terminating Batch Job...

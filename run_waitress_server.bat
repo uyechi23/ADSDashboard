@@ -23,9 +23,6 @@ echo Virtual Environment Not Initialized.
 echo Initializing Virtual Environment...
 py -m virtualenv env
 call env\Scripts\activate.bat
-echo Recursively Installing Dependencies...
-py -m pip install --upgrade pip
-py -m pip install -r requirements.txt
 
 rem once the Python Virtual Environment is initialized, proceed
 :env_exists
@@ -42,7 +39,9 @@ rem once the Python Virtual Environment is started, proceed
 echo Virtual Environment Started!
 
 rem install and upgrade dependencies recursively
-echo Upgrading Required Dependencies...
+echo Installing and Upgrading Required Dependencies...
+py -m pip install --upgrade pip
+py -m pip install -r requirements.txt
 pip-upgrade requirements.txt -p all
 
 rem set the Flask App's port

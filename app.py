@@ -110,7 +110,7 @@ def create_app():
         query = f'\
             SELECT temperature, humidity, timestamp FROM miscdata\
             ORDER BY timestamp DESC\
-            LIMIT 20\
+            LIMIT 100\
         '
         graphdata = cur.execute(query).fetchall()
         

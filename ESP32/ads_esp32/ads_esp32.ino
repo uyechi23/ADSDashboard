@@ -22,8 +22,8 @@ DHT dht_sensor(DHT_PIN, DHT_TYPE);
 
 // SSID - the Wi-Fi network's name
 // Password - the Wi-Fi network's password
-const char* ssid     = "poggers";
-const char* password = "UngaBunga69420";
+const char* ssid     = "UPIoT";
+const char* password = "";
 
 // host - the main URL of the webpage you want to connect to; you can use the IP address of a Flask app
 const char host[] = "http://192.168.68.109:8080";

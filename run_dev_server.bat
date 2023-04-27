@@ -42,7 +42,6 @@ rem install dependencies
 echo Installing and Upgrading Dependencies...
 py -m pip install --upgrade pip
 py -m pip install -r requirements.txt
-pip-upgrade requirements.txt -p all
 
 rem start the Flask server
 cls 

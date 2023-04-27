@@ -42,7 +42,6 @@ rem install and upgrade dependencies recursively
 echo Installing and Upgrading Required Dependencies...
 py -m pip install --upgrade pip
 py -m pip install -r requirements.txt
-pip-upgrade requirements.txt -p all
 
 rem set the Flask App's port
 set "FLASK_PORT=8080"

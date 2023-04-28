@@ -13,9 +13,18 @@
 // include the DHT library
 #include <DHT.h>
 
+// include servo library files
+#include <ESP32Servo.h>
+
 // define the DHT sensor
 #define DHT_PIN 14
 #define DHT_TYPE DHT11
+
+// define the rain sensor pin
+#define ORS_PIN 32
+
+// define the servo motor pin
+#define SERVO_PIN 33
 
 // create a DHT object to represent data from the sensor
 DHT dht_sensor(DHT_PIN, DHT_TYPE);
@@ -102,6 +111,14 @@ void setup() {
 
     // start the DHT sensory
     dht_sensor.begin();
+
+    // initialize the timers and other servo configurations (from ESP32Servo.h)
+    ESP32PWM::allocateTimer(0);
+    ESP32PWM::allocateTimer(1);
+    ESP32PWM::allocateTimer(2);
+    ESP32PWM::allocateTimer(3);
+    servo.setPeriodHertz(50);
+    servo.attach(SERVO_PIN);
     
 }
 
@@ -188,17 +205,22 @@ void loop() {
     // in the meantime, if a change in the rain sensor's value occurs, send another HTTP request
     unsigned long misc_delay = millis();
     while (millis() - misc_delay < 60000){
-
-        // TODO: Replace the code below with the rain sensor reading
-        int randNum = random(0, 100);
-        if(randNum < 3){
-            // 3% chance to toggle rain 
-            rainSensor = (rainSensor + 1) % 2;
-        }
+        // read the rain sensor value - HIGH is when it's raining
+        rainSensor = digitalRead(ORS_PIN);
 
         // detect a change in precipitation events
         if(isRaining != rainSensor){
+            // when a rain event change occurs, turn the servo motor
+            // if rain sensor is not reading rain and rainSensor is 0, degree should be 0
+            // if rain sensor is reading rain and rainSensor is 1, degree should be 180
+            // due to the servo motor's control interface, the range of values a servo can
+            // change is between 0 and 180. However, due to the gear ratios in the servo
+            // itself, it's actual range of motion is 0 to 270 degrees.
+            servo.write(180 * rainSensor);
+
+            // update the isRaining value with the rain sensor's value
             isRaining = rainSensor;
+            
             // connect to the client using the IP address and Port of the Flask App
             // set these values above - they can be found when running the Flask application
             if(client.connect(flaskappip, port)){

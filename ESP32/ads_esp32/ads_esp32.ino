@@ -20,7 +20,7 @@
 #define DHT_PIN 14
 #define DHT_TYPE DHT11
 
-// define the rain sensor pin
+// define the optical rain sensor (ORS) pin
 #define ORS_PIN 32
 
 // define the servo motor pin
@@ -35,14 +35,14 @@ const char* ssid     = "UPIoT";
 const char* password = "";
 
 // host - the main URL of the webpage you want to connect to; you can use the IP address of a Flask app
-const char host[] = "http://192.168.68.109:8080";
-const byte flaskappip[4] = {192, 168, 68, 109};
+const char host[] = "http://192.168.68.109:8080"; // change this to the private network IP listed when starting the Flask app
+const byte flaskappip[4] = {192, 168, 68, 109}; // change these numbers as well, but put the IP address as four integers 
 
 // port - the port of the flask app
-const int port = 8080;
+const int port = 8080; // change this to the port the Flask app is running on; should be port 8080
 
 // device information - to send to Flask App
-const String name = "shileyrooftop";
+const String name = "shileyrooftop"; // change this to make it easier to identify - ENSURE THIS IS UNIQUE
 String macaddress = "";
 String status = "";
 float temp = 0.0;
@@ -120,6 +120,8 @@ void setup() {
     servo.setPeriodHertz(50);
     servo.attach(SERVO_PIN);
     
+    // initialize the pin for the optical rain sensor (ORS) as an input
+    pinMode(ORS_PIN, INPUT);
 }
 
 void loop() {
@@ -220,7 +222,7 @@ void loop() {
 
             // update the isRaining value with the rain sensor's value
             isRaining = rainSensor;
-            
+
             // connect to the client using the IP address and Port of the Flask App
             // set these values above - they can be found when running the Flask application
             if(client.connect(flaskappip, port)){
